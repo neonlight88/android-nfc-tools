@@ -2,10 +2,14 @@ package neonlight88.com.nfctools;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.view.View;
 
 public class MainActivity extends Activity {
+
+    private final String MIMETYPE = "application/neonlight88.com.nfctools";
+    private NfcAdapter nfcAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
