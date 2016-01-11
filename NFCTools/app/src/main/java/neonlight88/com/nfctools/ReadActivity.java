@@ -1,6 +1,7 @@
 package neonlight88.com.nfctools;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 
@@ -32,6 +33,11 @@ public class ReadActivity extends Activity {
     protected void onPause() {
         nfcAdapter.disableForegroundDispatch(this);
         super.onPause();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        intentHandler(intent);
     }
 
 }
