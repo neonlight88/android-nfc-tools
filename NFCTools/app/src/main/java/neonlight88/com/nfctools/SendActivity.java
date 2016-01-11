@@ -1,6 +1,8 @@
 package neonlight88.com.nfctools;
 
 import android.app.Activity;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Bundle;
@@ -50,4 +52,12 @@ public class SendActivity extends Activity
             }
         }
     };
+
+    @Override
+    public NdefMessage createNdefMessage(NfcEvent nfcEvent) {
+        NdefRecord[] ndefRecords = new NdefRecord[1];
+        ndefRecords[0] = NdefRecord.createMime("application/neonlight88.com.nfctools", et2.getText().toString().getBytes());
+        NdefMessage ndefMessage = new NdefMessage(ndefRecords);
+        return ndefMessage;
+    }
 }
