@@ -41,4 +41,11 @@ public class NdefRead extends AsyncTask<Ndef, Void, String> {
         }
         return null;
     }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if(result != null) {
+            Tools.displayToast(context, result);
+        }
+    }
 }
