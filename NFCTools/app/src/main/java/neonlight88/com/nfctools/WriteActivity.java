@@ -2,6 +2,7 @@ package neonlight88.com.nfctools;
 
 import android.app.Activity;
 import android.nfc.NfcAdapter;
+import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.widget.EditText;
 
@@ -22,5 +23,20 @@ public class WriteActivity extends Activity {
         } else {
             Tools.displayToast(this, "This device doesn't support NFC or it is disabled.");
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String[][] techList = new String[][]{
+                new String[]{Ndef.class.getName()}
+        };
+        Tools.foregroundDispatchSetup(this, nfcAdapter, MIMETYPE, techList);
+    }
+
+    @Override
+    protected void onPause() {
+        nfcAdapter.disableForegroundDispatch(this);
+        super.onPause();
     }
 }
