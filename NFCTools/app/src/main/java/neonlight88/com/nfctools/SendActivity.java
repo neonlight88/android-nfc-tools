@@ -2,7 +2,10 @@ package neonlight88.com.nfctools;
 
 import android.app.Activity;
 import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.EditText;
 
 public class SendActivity extends Activity
@@ -30,4 +33,21 @@ public class SendActivity extends Activity
     protected void onResume() {
         super.onResume();
     }
+
+    @Override
+    public void onNdefPushComplete(NfcEvent nfcEvent) {
+        handler.obtainMessage(1).sendToTarget();
+    }
+
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message message) {
+            switch(message.what) {
+                case 1:
+                    Tools.displayToast(getApplicationContext(), "Beaming data with NFC successful.");
+                    //finish();
+                    break;
+            }
+        }
+    };
 }
