@@ -2,10 +2,16 @@ package neonlight88.com.nfctools;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.nfc.FormatException;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.widget.EditText;
+
+import java.io.IOException;
 
 public class WriteActivity extends Activity {
 
@@ -44,5 +50,37 @@ public class WriteActivity extends Activity {
     @Override
     protected void onNewIntent(Intent intent) {
         intentHandler(intent);
+    }
+
+    private void intentHandler(Intent intent) {
+        String intentAction = intent.getAction();
+        if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intentAction) ||
+                NfcAdapter.ACTION_TECH_DISCOVERED.equals(intentAction)) {
+            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            String[] techList = tag.getTechList();
+            for (String tech : techList) {
+                if (tech.equals(Ndef.class.getName())) {
+                    writeNfcTag(et1.getText().toString(), tag);
+                }
+            }
+        }
+    }
+
+    private void writeNfcTag(String msg, Tag tag) {
+        NdefRecord[] ndefRecords = new NdefRecord[1];
+        ndefRecords[0] = NdefRecord.createTextRecord("", msg);
+        NdefMessage ndefMessage = new NdefMessage(ndefRecords);
+        Ndef ndef = Ndef.get(tag);
+        try {
+            ndef.connect();
+            ndef.writeNdefMessage(ndefMessage);
+            ndef.close();
+            et1.setText("");
+            Tools.displayToast(getApplication(), "Text written to the tag: " + msg);
+        } catch (FormatException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
