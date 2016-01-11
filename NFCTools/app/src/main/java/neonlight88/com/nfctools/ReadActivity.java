@@ -3,6 +3,8 @@ package neonlight88.com.nfctools;
 import android.app.Activity;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.os.Bundle;
 
 public class ReadActivity extends Activity {
@@ -38,6 +40,19 @@ public class ReadActivity extends Activity {
     @Override
     protected void onNewIntent(Intent intent) {
         intentHandler(intent);
+    }
+
+    private void intentHandler(Intent intent) {
+        String intentAction = intent.getAction();
+        if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intentAction) ||
+                NfcAdapter.ACTION_TECH_DISCOVERED.equals(intentAction)) {
+            if (MIMETYPE.equals(intent.getType())) {
+                Tag nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                new NdefRead(getApplicationContext()).execute(Ndef.get(nfcTag));
+            } else {
+                Tools.displayToast(getApplicationContext(), "Mime type error.");
+            }
+        }
     }
 
 }
