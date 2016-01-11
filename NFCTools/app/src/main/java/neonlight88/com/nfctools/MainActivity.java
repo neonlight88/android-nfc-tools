@@ -2,8 +2,10 @@ package neonlight88.com.nfctools;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 
 public class MainActivity extends Activity {
@@ -29,6 +31,7 @@ public class MainActivity extends Activity {
         super.onResume();
         intentHandler(getIntent());
     }
+
 
     //btn1 - onClick
     public void read(View view) {

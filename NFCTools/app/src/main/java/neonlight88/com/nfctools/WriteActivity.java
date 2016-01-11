@@ -23,6 +23,7 @@ public class WriteActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
+        et1 = (EditText)findViewById(R.id.et1);
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(Tools.checkNFC(nfcAdapter)) {
