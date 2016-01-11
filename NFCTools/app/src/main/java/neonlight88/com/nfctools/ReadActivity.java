@@ -22,4 +22,16 @@ public class ReadActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Tools.foregroundDispatchSetup(this, nfcAdapter, MIMETYPE, new String[][]{});
+    }
+
+    @Override
+    protected void onPause() {
+        nfcAdapter.disableForegroundDispatch(this);
+        super.onPause();
+    }
+
 }
