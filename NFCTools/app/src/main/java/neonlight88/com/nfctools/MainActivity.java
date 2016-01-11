@@ -32,6 +32,19 @@ public class MainActivity extends Activity {
         intentHandler(getIntent());
     }
 
+    private void intentHandler(Intent intent) {
+        if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())
+                && intent.getType().equals(MIMETYPE)) {
+            Parcelable[] messagesRaw = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            NdefMessage ndefMessage = (NdefMessage) messagesRaw[0];
+            if(ndefMessage != null) {
+                Tools.displayToast(
+                        getApplicationContext(),
+                        new String(ndefMessage.getRecords()[0].getPayload())
+                );
+            }
+        }
+    }
 
     //btn1 - onClick
     public void read(View view) {
