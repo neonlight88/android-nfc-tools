@@ -15,5 +15,14 @@ public class SendActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send);
+        et2 = (EditText)findViewById(R.id.et2);
+
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if(Tools.checkNFC(nfcAdapter)) {
+            nfcAdapter.setNdefPushMessageCallback(this, this);
+            nfcAdapter.setOnNdefPushCompleteCallback(this, this);
+        } else {
+            Tools.displayToast(this, "This device doesn't support NFC or it is disabled.");
+        }
     }
 }
