@@ -25,4 +25,9 @@ public class SendActivity extends Activity
             Tools.displayToast(this, "This device doesn't support NFC or it is disabled.");
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
