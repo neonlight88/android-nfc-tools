@@ -24,6 +24,12 @@ public class MainActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        intentHandler(getIntent());
+    }
+
     //btn1 - onClick
     public void read(View view) {
         startActivity(new Intent(MainActivity.this, ReadActivity.class));
