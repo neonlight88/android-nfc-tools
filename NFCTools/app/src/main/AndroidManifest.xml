@@ -10,7 +10,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_main" />
+        <activity
+            android:name=".ReadActivity"
+            android:label="@string/title_activity_read"></activity>
     </application>
 
 </manifest>

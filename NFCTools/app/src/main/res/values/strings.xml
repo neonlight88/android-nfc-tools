@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">NFCTools</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_read">ReadActivity</string>
 </resources>
