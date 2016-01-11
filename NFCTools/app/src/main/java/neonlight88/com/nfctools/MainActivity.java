@@ -15,6 +15,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if(Tools.checkNFC(nfcAdapter)) {
+            intentHandler(getIntent());
+        } else {
+            Tools.displayToast(this, "This device doesn't support NFC or it is disabled.");
+        }
     }
 
     //btn1 - onClick
