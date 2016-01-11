@@ -1,9 +1,9 @@
 package neonlight88.com.nfctools;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 
-public class ReadActivity extends ActionBarActivity {
+public class ReadActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
